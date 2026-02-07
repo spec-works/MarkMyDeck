@@ -146,6 +146,9 @@ public class PresentationBuilder : IDisposable
             Type = SlideLayoutValues.Blank
         };
 
+        // Slide layout must reference back to its slide master
+        slideLayoutPart.AddPart(slideMasterPart, "rId1");
+
         // Create slide master
         slideMasterPart.SlideMaster = new SlideMaster(
             new CommonSlideData(new ShapeTree(
