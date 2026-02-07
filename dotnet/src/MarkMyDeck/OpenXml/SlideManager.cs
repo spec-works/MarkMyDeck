@@ -362,10 +362,20 @@ public class SlideManager
     }
 
     /// <summary>
-    /// Adds an image to the slide.
+    /// Adds an image to the slide. If content shape exists, shrinks it first.
     /// </summary>
     public void AddImage(byte[] imageData, string contentType, long widthEmu, long heightEmu)
     {
+        // If content shape exists, resize it to fit its paragraphs
+        if (_contentShape != null)
+        {
+            var estimatedContentHeight = (long)(_contentParagraphCount * 320040);
+            if (estimatedContentHeight < 182880) estimatedContentHeight = 182880;
+            var xfrm = _contentShape.ShapeProperties!.GetFirstChild<D.Transform2D>()!;
+            xfrm.Extents!.Cy = estimatedContentHeight;
+            _currentY = _contentTop + estimatedContentHeight + 91440;
+        }
+
         var partType = contentType.ToLowerInvariant() switch
         {
             "image/png" => ImagePartType.Png,

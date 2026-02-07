@@ -82,3 +82,11 @@ This text has **bold**, *italic*, and `inline code` formatting.
 # Thank You!
 
 Built with Markdig, DocumentFormat.OpenXml, and ColorCode.Core.
+
+---
+
+# Images
+
+Here's an embedded image:
+
+![Test Image](test-image.png)

@@ -81,7 +81,8 @@ public static class ConvertCommand
             var options = new ConversionOptions
             {
                 Styles = styles,
-                DocumentTitle = title
+                DocumentTitle = title,
+                BasePath = input.DirectoryName
             };
 
             // Read markdown file

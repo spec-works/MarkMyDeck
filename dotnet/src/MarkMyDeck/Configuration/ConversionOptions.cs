@@ -49,6 +49,12 @@ public class ConversionOptions
     public string? Subject { get; set; }
 
     /// <summary>
+    /// Base directory for resolving relative paths (e.g., images).
+    /// Set automatically from the input file path when using the CLI.
+    /// </summary>
+    public string? BasePath { get; set; }
+
+    /// <summary>
     /// Strategy for handling images in the presentation.
     /// </summary>
     public ImageHandlingStrategy ImageStrategy { get; set; } = ImageHandlingStrategy.Embed;
