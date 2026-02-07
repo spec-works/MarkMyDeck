@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+
+    <!-- NuGet Package Configuration -->
+    <PackageId>SpecWorks.MarkMyDeck</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>SpecWorks</Authors>
+    <Company>SpecWorks</Company>
+    <Description>A .NET library for converting CommonMark markdown to Microsoft PowerPoint (.pptx) presentations with syntax highlighting. Supports headings as slide titles, paragraphs, code blocks with syntax highlighting, links, images, lists, tables, and more.</Description>
+    <PackageTags>markdown;commonmark;powerpoint;pptx;openxml;converter;presentation;office;syntax-highlighting;slides</PackageTags>
+    <PackageProjectUrl>https://github.com/spec-works/MarkMyDeck</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/spec-works/MarkMyDeck</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ColorCode.Core" Version="2.0.15" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
+    <PackageReference Include="Markdig" Version="0.37.0" />
+    <!-- Override vulnerable transitive dependency from DocumentFormat.OpenXml -->
+    <PackageReference Include="System.IO.Packaging" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

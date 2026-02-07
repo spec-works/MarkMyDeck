@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- NuGet Package Configuration -->
+    <PackageId>SpecWorks.MarkMyDeck.CLI</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>SpecWorks</Authors>
+    <Company>SpecWorks</Company>
+    <Description>Command-line tool for converting CommonMark markdown files to Microsoft PowerPoint (.pptx) presentations with syntax highlighting support. Part of the MarkMyDeck library suite.</Description>
+    <PackageTags>markdown;commonmark;powerpoint;pptx;converter;cli;tool;command-line;syntax-highlighting;slides</PackageTags>
+    <PackageProjectUrl>https://github.com/spec-works/MarkMyDeck</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/spec-works/MarkMyDeck</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <!-- .NET Tool Configuration -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>markmydeck</ToolCommandName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MarkMyDeck\MarkMyDeck.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
