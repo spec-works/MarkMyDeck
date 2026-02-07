@@ -30,7 +30,8 @@ public class TableRenderer : OpenXmlObjectRenderer<MarkdigTable>
 
         if (rowCount == 0 || colCount == 0) return;
 
-        var rowHeight = (long)(styles.DefaultFontSize * 100 * 1.8);
+        // 1 point = 12700 EMU; row height ~ 1.6x font size
+        var rowHeight = (long)(styles.DefaultFontSize * 12700 * 1.6);
         var totalHeight = rowHeight * rowCount;
 
         var drawingTable = slide.AddTable(rowCount, colCount, totalHeight);

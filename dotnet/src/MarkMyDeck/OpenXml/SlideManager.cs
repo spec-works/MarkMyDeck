@@ -13,7 +13,7 @@ using P = DocumentFormat.OpenXml.Presentation;
 namespace MarkMyDeck.OpenXml;
 
 /// <summary>
-/// Manages the current slide's content, positioning elements vertically.
+/// Manages the current slide's content using a title shape and a content shape.
 /// </summary>
 public class SlideManager
 {
@@ -21,17 +21,23 @@ public class SlideManager
     private readonly PresentationBuilder _builder;
     private int _shapeIdCounter = 2;
 
-    // Content area margins in EMUs (914400 EMUs = 1 inch)
-    private const long LeftMargin = 457200;    // 0.5 inch
-    private const long TopMargin = 457200;     // 0.5 inch
-    private const long RightMargin = 457200;   // 0.5 inch
-    private const long BottomMargin = 457200;  // 0.5 inch
+    // Layout constants in EMUs (914400 EMUs = 1 inch)
+    private const long LeftMargin = 457200;     // 0.5 inch
+    private const long TopMargin = 274638;      // ~0.3 inch
+    private const long RightMargin = 457200;    // 0.5 inch
+    private const long TitleHeight = 990600;    // ~1.08 inch
+    private const long TitleContentGap = 182880; // ~0.2 inch
 
-    // Current Y position for content placement
-    private long _currentY;
     private long _contentWidth;
     private long _slideWidth;
     private long _slideHeight;
+    private long _contentTop;
+    private long _contentHeight;
+    private long _currentY; // tracks position for standalone shapes (tables, images, code blocks)
+
+    private P.Shape? _titleShape;
+    private P.Shape? _contentShape;
+    private int _contentParagraphCount;
 
     public SlidePart SlidePart => _slidePart;
     public SlideStyleConfiguration Styles => _builder.Options.Styles;
@@ -45,7 +51,9 @@ public class SlideManager
         _slideWidth = (long)(builder.Options.SlideWidthInches * 914400);
         _slideHeight = (long)(builder.Options.SlideHeightInches * 914400);
         _contentWidth = _slideWidth - LeftMargin - RightMargin;
-        _currentY = TopMargin;
+        _contentTop = TopMargin + TitleHeight + TitleContentGap;
+        _contentHeight = _slideHeight - _contentTop - 274638; // bottom margin
+        _currentY = _contentTop;
     }
 
     /// <summary>
@@ -62,26 +70,135 @@ public class SlideManager
     public long ContentWidth => _contentWidth;
 
     /// <summary>
-    /// Adds a text box shape to the slide at the current Y position.
-    /// Returns the shape so callers can add paragraphs.
+    /// Gets or creates the title shape (top of slide).
     /// </summary>
-    public P.Shape AddTextBox(long height, long? xOffset = null, long? width = null)
+    public P.Shape GetOrCreateTitleShape()
     {
-        var x = xOffset ?? LeftMargin;
-        var w = width ?? _contentWidth;
+        if (_titleShape == null)
+        {
+            _titleShape = new P.Shape(
+                new P.NonVisualShapeProperties(
+                    new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = "Title" },
+                    new P.NonVisualShapeDrawingProperties(new D.ShapeLocks { NoGrouping = true }),
+                    new ApplicationNonVisualDrawingProperties()),
+                new P.ShapeProperties(
+                    new D.Transform2D(
+                        new D.Offset { X = LeftMargin, Y = TopMargin },
+                        new D.Extents { Cx = _contentWidth, Cy = TitleHeight }),
+                    new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle }),
+                new P.TextBody(
+                    new D.BodyProperties
+                    {
+                        Wrap = D.TextWrappingValues.Square,
+                        RightToLeftColumns = false,
+                        Anchor = D.TextAnchoringTypeValues.Bottom
+                    },
+                    new D.ListStyle())
+            );
+            GetShapeTree().Append(_titleShape);
+        }
+        return _titleShape;
+    }
+
+    /// <summary>
+    /// Gets or creates the main content shape (body of slide, below title).
+    /// </summary>
+    public P.Shape GetOrCreateContentShape()
+    {
+        if (_contentShape == null)
+        {
+            _contentShape = new P.Shape(
+                new P.NonVisualShapeProperties(
+                    new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = "Content" },
+                    new P.NonVisualShapeDrawingProperties(new D.ShapeLocks { NoGrouping = true }),
+                    new ApplicationNonVisualDrawingProperties()),
+                new P.ShapeProperties(
+                    new D.Transform2D(
+                        new D.Offset { X = LeftMargin, Y = _contentTop },
+                        new D.Extents { Cx = _contentWidth, Cy = _contentHeight }),
+                    new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle }),
+                new P.TextBody(
+                    new D.BodyProperties
+                    {
+                        Wrap = D.TextWrappingValues.Square,
+                        RightToLeftColumns = false,
+                        Anchor = D.TextAnchoringTypeValues.Top
+                    },
+                    new D.ListStyle())
+            );
+            GetShapeTree().Append(_contentShape);
+        }
+        return _contentShape;
+    }
+
+    /// <summary>
+    /// Whether the content shape has been created (i.e., there is body content).
+    /// </summary>
+    public bool HasContentShape => _contentShape != null;
+
+    /// <summary>
+    /// Adds a paragraph to the title shape.
+    /// </summary>
+    public D.Paragraph AddTitleParagraph()
+    {
+        var shape = GetOrCreateTitleShape();
+        var paragraph = new D.Paragraph();
+        shape.TextBody!.Append(paragraph);
+        return paragraph;
+    }
+
+    /// <summary>
+    /// Adds a paragraph to the content shape and tracks estimated height.
+    /// </summary>
+    public D.Paragraph AddContentParagraph()
+    {
+        var shape = GetOrCreateContentShape();
+        var paragraph = new D.Paragraph();
+        shape.TextBody!.Append(paragraph);
+        _contentParagraphCount++;
+        // Update _currentY to account for content paragraphs
+        // Estimate ~0.35 inch per paragraph
+        _currentY = _contentTop + (long)(_contentParagraphCount * 320040);
+        return paragraph;
+    }
+
+    /// <summary>
+    /// Adds a standalone text box with a solid background fill (for code blocks).
+    /// If a content shape exists, shrinks it and positions the code block below.
+    /// </summary>
+    public P.Shape AddCodeBlockShape(long height, string bgColorHex)
+    {
+        // If content shape exists, resize it to fit its paragraphs
+        if (_contentShape != null)
+        {
+            var estimatedContentHeight = (long)(_contentParagraphCount * 320040); // ~0.35in per paragraph
+            if (estimatedContentHeight < 182880) estimatedContentHeight = 182880; // min 0.2in
+            var xfrm = _contentShape.ShapeProperties!.GetFirstChild<D.Transform2D>()!;
+            xfrm.Extents!.Cy = estimatedContentHeight;
+            _currentY = _contentTop + estimatedContentHeight + 91440; // gap
+        }
 
         var shape = new P.Shape(
             new P.NonVisualShapeProperties(
-                new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = $"TextBox {_shapeIdCounter}" },
+                new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = $"Code {_shapeIdCounter}" },
                 new P.NonVisualShapeDrawingProperties(new D.ShapeLocks { NoGrouping = true }),
                 new ApplicationNonVisualDrawingProperties()),
             new P.ShapeProperties(
                 new D.Transform2D(
-                    new D.Offset { X = x, Y = _currentY },
-                    new D.Extents { Cx = w, Cy = height }),
-                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle }),
+                    new D.Offset { X = LeftMargin, Y = _currentY },
+                    new D.Extents { Cx = _contentWidth, Cy = height }),
+                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
+                new D.SolidFill(new D.RgbColorModelHex { Val = bgColorHex })),
             new P.TextBody(
-                new D.BodyProperties { Wrap = D.TextWrappingValues.Square, RightToLeftColumns = false },
+                new D.BodyProperties
+                {
+                    Wrap = D.TextWrappingValues.Square,
+                    RightToLeftColumns = false,
+                    LeftInset = 91440,   // 0.1 inch padding
+                    TopInset = 45720,
+                    RightInset = 91440,
+                    BottomInset = 45720
+                },
                 new D.ListStyle())
         );
 
@@ -92,33 +209,17 @@ public class SlideManager
     }
 
     /// <summary>
-    /// Adds a text box with a solid background fill.
+    /// Advances the Y cursor past the content shape so standalone elements appear below it.
+    /// Call this before adding code blocks, tables, or images if content shape exists.
     /// </summary>
-    public P.Shape AddTextBoxWithBackground(long height, string bgColorHex, long? xOffset = null, long? width = null)
+    public void SyncCursorAfterContent()
     {
-        var x = xOffset ?? LeftMargin;
-        var w = width ?? _contentWidth;
-
-        var shape = new P.Shape(
-            new P.NonVisualShapeProperties(
-                new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = $"TextBox {_shapeIdCounter}" },
-                new P.NonVisualShapeDrawingProperties(new D.ShapeLocks { NoGrouping = true }),
-                new ApplicationNonVisualDrawingProperties()),
-            new P.ShapeProperties(
-                new D.Transform2D(
-                    new D.Offset { X = x, Y = _currentY },
-                    new D.Extents { Cx = w, Cy = height }),
-                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
-                new D.SolidFill(new D.RgbColorModelHex { Val = bgColorHex })),
-            new P.TextBody(
-                new D.BodyProperties { Wrap = D.TextWrappingValues.Square, RightToLeftColumns = false },
-                new D.ListStyle())
-        );
-
-        GetShapeTree().Append(shape);
-        _currentY += height;
-
-        return shape;
+        // Place standalone elements after the content area
+        // We estimate based on content shape bottom
+        if (_contentShape != null)
+        {
+            _currentY = _contentTop + _contentHeight + 91440; // small gap
+        }
     }
 
     /// <summary>
@@ -223,39 +324,7 @@ public class SlideManager
     }
 
     /// <summary>
-    /// Adds vertical spacing.
-    /// </summary>
-    public void AddSpacing(long emus)
-    {
-        _currentY += emus;
-    }
-
-    /// <summary>
-    /// Adds a horizontal line (thematic break) to the slide.
-    /// </summary>
-    public void AddHorizontalLine()
-    {
-        var shape = new P.Shape(
-            new P.NonVisualShapeProperties(
-                new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = $"Line {_shapeIdCounter}" },
-                new P.NonVisualShapeDrawingProperties(),
-                new ApplicationNonVisualDrawingProperties()),
-            new P.ShapeProperties(
-                new D.Transform2D(
-                    new D.Offset { X = LeftMargin, Y = _currentY + 45000 },
-                    new D.Extents { Cx = _contentWidth, Cy = 0 }),
-                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Line },
-                new D.Outline(
-                    new D.SolidFill(new D.RgbColorModelHex { Val = "AAAAAA" })
-                ) { Width = 12700 })
-        );
-
-        GetShapeTree().Append(shape);
-        _currentY += 90000;
-    }
-
-    /// <summary>
-    /// Adds a table to the slide.
+    /// Adds a table to the slide at the current position.
     /// </summary>
     public D.Table AddTable(int rows, int cols, long height)
     {

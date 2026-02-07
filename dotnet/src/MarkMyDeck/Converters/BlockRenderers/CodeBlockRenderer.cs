@@ -8,7 +8,7 @@ using P = DocumentFormat.OpenXml.Presentation;
 namespace MarkMyDeck.Converters.BlockRenderers;
 
 /// <summary>
-/// Renderer for code blocks (both fenced and indented).
+/// Renderer for code blocks — creates a standalone shape with background color.
 /// </summary>
 public class CodeBlockRenderer : OpenXmlObjectRenderer<CodeBlock>
 {
@@ -45,11 +45,13 @@ public class CodeBlockRenderer : OpenXmlObjectRenderer<CodeBlock>
         }
 
         if (lineCount == 0) lineCount = 1;
-        var lineHeight = (long)(styles.CodeFontSize * 100 * 1.4);
-        var totalHeight = lineHeight * lineCount + 100000; // padding
 
-        // Create text box with background
-        var shape = slide.AddTextBoxWithBackground(totalHeight, styles.CodeBackgroundColor);
+        // 1 point = 12700 EMU; line height ~ 1.4x font size
+        var lineHeightEmu = (long)(styles.CodeFontSize * 12700 * 1.4);
+        var totalHeight = lineHeightEmu * lineCount + 182880; // + padding
+
+        // Code blocks are standalone shapes with background
+        var shape = slide.AddCodeBlockShape(totalHeight, styles.CodeBackgroundColor);
         renderer.CurrentShape = shape;
 
         if (lines != null)
@@ -59,9 +61,11 @@ public class CodeBlockRenderer : OpenXmlObjectRenderer<CodeBlock>
                 var text = lines[i].Slice.ToString();
                 var paragraph = slide.AddParagraphToShape(shape);
 
-                // Set line spacing
+                // Set tight line spacing
                 var pProps = new D.ParagraphProperties();
                 pProps.Append(new D.LineSpacing(new D.SpacingPercent { Val = 100000 }));
+                pProps.Append(new D.SpaceBefore(new D.SpacingPoints { Val = 0 }));
+                pProps.Append(new D.SpaceAfter(new D.SpacingPoints { Val = 0 }));
                 paragraph.Append(pProps);
 
                 if (useSyntaxHighlighting)

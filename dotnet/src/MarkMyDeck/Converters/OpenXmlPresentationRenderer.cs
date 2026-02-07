@@ -49,6 +49,11 @@ public class OpenXmlPresentationRenderer : RendererBase, IDisposable
     /// </summary>
     public D.Paragraph? CurrentParagraph { get; set; }
 
+    /// <summary>
+    /// Flag set by ThematicBreakRenderer. Consumed by HeadingRenderer or next block.
+    /// </summary>
+    public bool PendingSlideBreak { get; set; }
+
     public OpenXmlPresentationRenderer(Stream outputStream, ConversionOptions? options = null)
     {
         _presentationBuilder = new PresentationBuilder(outputStream, options, leaveOpen: true);
@@ -90,6 +95,20 @@ public class OpenXmlPresentationRenderer : RendererBase, IDisposable
     {
         Write(markdownObject);
         return null!;
+    }
+
+    /// <summary>
+    /// Override Write to check for pending slide breaks before non-heading blocks.
+    /// </summary>
+    public new void Write(MarkdownObject obj)
+    {
+        if (PendingSlideBreak && obj is Block && !(obj is HeadingBlock) && !(obj is ThematicBreakBlock))
+        {
+            // Thematic break was not followed by a heading; force a new slide now
+            PendingSlideBreak = false;
+            NewSlide();
+        }
+        base.Write(obj);
     }
 
     /// <summary>

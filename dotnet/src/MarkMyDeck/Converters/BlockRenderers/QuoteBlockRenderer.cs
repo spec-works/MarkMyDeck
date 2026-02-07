@@ -4,7 +4,7 @@ using D = DocumentFormat.OpenXml.Drawing;
 namespace MarkMyDeck.Converters.BlockRenderers;
 
 /// <summary>
-/// Renderer for quote blocks.
+/// Renderer for quote blocks — adds italic paragraphs with indent to the content shape.
 /// </summary>
 public class QuoteBlockRenderer : OpenXmlObjectRenderer<QuoteBlock>
 {
@@ -17,21 +17,25 @@ public class QuoteBlockRenderer : OpenXmlObjectRenderer<QuoteBlock>
         {
             if (child is ParagraphBlock paragraphBlock)
             {
-                var height = (long)(styles.DefaultFontSize * 100 * 1.6);
-
-                // Indent quote blocks and use italic styling
-                var shape = slide.AddTextBox(height, xOffset: 914400, width: slide.ContentWidth - 457200);
-                renderer.CurrentShape = shape;
-
-                var paragraph = slide.AddParagraphToShape(shape);
+                var paragraph = slide.AddContentParagraph();
+                renderer.CurrentShape = slide.GetOrCreateContentShape();
                 renderer.CurrentParagraph = paragraph;
+
+                // Indent and style as quote
+                var pProps = new D.ParagraphProperties();
+                pProps.Append(new D.SpaceBefore(new D.SpacingPoints { Val = 200 }));
+                paragraph.Append(pProps);
+
+                // Add indent via a run with spaces (MarginL not available on ParagraphProperties in Drawing)
+                var indentRun = slide.CreateRun("    ", styles.DefaultFontName, styles.DefaultFontSize);
+                paragraph.Append(indentRun);
 
                 if (paragraphBlock.Inline != null)
                 {
                     renderer.WriteChildren(paragraphBlock.Inline);
                 }
 
-                // Apply italic to all runs in the paragraph
+                // Apply italic to all runs
                 foreach (var run in paragraph.Elements<D.Run>())
                 {
                     if (run.RunProperties == null)
