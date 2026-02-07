@@ -13,6 +13,11 @@ public class SlideStyleConfiguration
     public string DefaultFontName { get; set; } = "Segoe UI";
 
     /// <summary>
+    /// Font name for slide titles.
+    /// </summary>
+    public string TitleFontName { get; set; } = "Segoe UI Semibold";
+
+    /// <summary>
     /// Default font size for body text (in points).
     /// </summary>
     public int DefaultFontSize { get; set; } = 18;

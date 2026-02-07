@@ -12,6 +12,7 @@ public static class ConvertCommand
         FileInfo input,
         FileInfo? output,
         bool verbose,
+        string themeName,
         string? font,
         int? fontSize,
         bool force,
@@ -52,26 +53,39 @@ public static class ConvertCommand
                 Console.WriteLine();
             }
 
-            // Create conversion options
-            var options = new ConversionOptions
+            // Resolve theme
+            if (!SlideThemePresets.TryParse(themeName, out var theme))
             {
-                Styles = new SlideStyleConfiguration(),
-                DocumentTitle = title
-            };
+                Console.Error.WriteLine($"Error: Unknown theme '{themeName}'.");
+                Console.Error.WriteLine($"Available themes: {string.Join(", ", SlideThemePresets.AvailableThemes)}");
+                return 1;
+            }
 
+            var styles = SlideThemePresets.Create(theme);
+            if (verbose) Console.WriteLine($"Using theme: {theme}");
+
+            // Apply overrides
             if (font != null)
             {
-                options.Styles.DefaultFontName = font;
-                if (verbose) Console.WriteLine($"Using custom font: {font}");
+                styles.DefaultFontName = font;
+                if (verbose) Console.WriteLine($"  Font override: {font}");
             }
 
             if (fontSize.HasValue)
             {
-                options.Styles.DefaultFontSize = fontSize.Value;
-                if (verbose) Console.WriteLine($"Using custom font size: {fontSize.Value}pt");
+                styles.DefaultFontSize = fontSize.Value;
+                if (verbose) Console.WriteLine($"  Font size override: {fontSize.Value}pt");
             }
 
+            // Create conversion options
+            var options = new ConversionOptions
+            {
+                Styles = styles,
+                DocumentTitle = title
+            };
+
             // Read markdown file
+            if (verbose) Console.WriteLine();
             if (verbose) Console.WriteLine("Reading markdown file...");
             var markdown = await File.ReadAllTextAsync(input.FullName);
 

@@ -39,7 +39,7 @@ public class HeadingRenderer : OpenXmlObjectRenderer<HeadingBlock>
                 if (!run.RunProperties.Elements<D.SolidFill>().Any())
                     run.RunProperties.Append(new D.SolidFill(new D.RgbColorModelHex { Val = styles.TitleColor }));
                 if (!run.RunProperties.Elements<D.LatinFont>().Any())
-                    run.RunProperties.Append(new D.LatinFont { Typeface = "Segoe UI Semibold" });
+                    run.RunProperties.Append(new D.LatinFont { Typeface = styles.TitleFontName });
             }
         }
         else
