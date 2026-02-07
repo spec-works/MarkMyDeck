@@ -82,7 +82,7 @@ public class CodeBlockRenderer : OpenXmlObjectRenderer<CodeBlock>
                 }
                 else
                 {
-                    var run = slide.CreateRun(text, styles.CodeFontName, styles.CodeFontSize, styles.BodyColor);
+                    var run = slide.CreateRun(text, styles.CodeFontName, styles.CodeFontSize, styles.CodeForegroundColor);
                     paragraph.Append(run);
                 }
             }

@@ -22,21 +22,26 @@ public class SlideManager
     private int _shapeIdCounter = 2;
 
     // Layout constants in EMUs (914400 EMUs = 1 inch)
-    private const long LeftMargin = 457200;     // 0.5 inch
-    private const long TopMargin = 274638;      // ~0.3 inch
-    private const long RightMargin = 457200;    // 0.5 inch
-    private const long TitleHeight = 990600;    // ~1.08 inch
-    private const long TitleContentGap = 182880; // ~0.2 inch
+    private const long LeftMargin = 640080;     // 0.7 inch
+    private const long TopMargin = 0;           // title bar starts at top
+    private const long RightMargin = 640080;    // 0.7 inch
+    private const long TitleBarHeight = 1371600; // 1.5 inch (accent bar)
+    private const long TitleTextInset = 274638;  // vertical padding inside title bar
+    private const long TitleContentGap = 274638; // ~0.3 inch gap below title bar
+    private const long ContentLeftMargin = 640080; // 0.7 inch
+    private const long BottomMargin = 365760;   // 0.4 inch
 
     private long _contentWidth;
     private long _slideWidth;
     private long _slideHeight;
     private long _contentTop;
     private long _contentHeight;
-    private long _currentY; // tracks position for standalone shapes (tables, images, code blocks)
+    private long _currentY;
 
+    private P.Shape? _titleBarShape;
     private P.Shape? _titleShape;
     private P.Shape? _contentShape;
+    private P.Shape? _accentLineShape;
     private int _contentParagraphCount;
 
     public SlidePart SlidePart => _slidePart;
@@ -50,10 +55,13 @@ public class SlideManager
         _builder = builder;
         _slideWidth = (long)(builder.Options.SlideWidthInches * 914400);
         _slideHeight = (long)(builder.Options.SlideHeightInches * 914400);
-        _contentWidth = _slideWidth - LeftMargin - RightMargin;
-        _contentTop = TopMargin + TitleHeight + TitleContentGap;
-        _contentHeight = _slideHeight - _contentTop - 274638; // bottom margin
+        _contentWidth = _slideWidth - ContentLeftMargin - RightMargin;
+        _contentTop = TitleBarHeight + TitleContentGap;
+        _contentHeight = _slideHeight - _contentTop - BottomMargin;
         _currentY = _contentTop;
+
+        // Add slide background fill
+        AddSlideBackground();
     }
 
     /// <summary>
@@ -70,12 +78,76 @@ public class SlideManager
     public long ContentWidth => _contentWidth;
 
     /// <summary>
-    /// Gets or creates the title shape (top of slide).
+    /// Adds a solid background fill to the slide.
+    /// </summary>
+    private void AddSlideBackground()
+    {
+        var bgColor = Styles.SlideBackgroundColor;
+        var bg = new P.Background(
+            new P.BackgroundProperties(
+                new D.SolidFill(new D.RgbColorModelHex { Val = bgColor }),
+                new D.EffectList()));
+        _slidePart.Slide.CommonSlideData!.InsertBefore(bg,
+            _slidePart.Slide.CommonSlideData.ShapeTree);
+    }
+
+    /// <summary>
+    /// Adds the dark accent title bar rectangle (background shape behind the title text).
+    /// </summary>
+    private void EnsureTitleBar()
+    {
+        if (_titleBarShape != null) return;
+
+        // Full-width accent bar at top
+        _titleBarShape = new P.Shape(
+            new P.NonVisualShapeProperties(
+                new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = "TitleBar" },
+                new P.NonVisualShapeDrawingProperties(new D.ShapeLocks { NoGrouping = true }),
+                new ApplicationNonVisualDrawingProperties()),
+            new P.ShapeProperties(
+                new D.Transform2D(
+                    new D.Offset { X = 0, Y = 0 },
+                    new D.Extents { Cx = _slideWidth, Cy = TitleBarHeight }),
+                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
+                new D.SolidFill(new D.RgbColorModelHex { Val = Styles.TitleBarColor }),
+                new D.Outline(new D.NoFill())),
+            new P.TextBody(
+                new D.BodyProperties(),
+                new D.ListStyle(),
+                new D.Paragraph(new D.EndParagraphRunProperties { Language = "en-US" }))
+        );
+        GetShapeTree().Append(_titleBarShape);
+
+        // Thin accent line below title bar
+        _accentLineShape = new P.Shape(
+            new P.NonVisualShapeProperties(
+                new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = "AccentLine" },
+                new P.NonVisualShapeDrawingProperties(new D.ShapeLocks { NoGrouping = true }),
+                new ApplicationNonVisualDrawingProperties()),
+            new P.ShapeProperties(
+                new D.Transform2D(
+                    new D.Offset { X = 0, Y = TitleBarHeight },
+                    new D.Extents { Cx = _slideWidth, Cy = 45720 }),
+                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
+                new D.SolidFill(new D.RgbColorModelHex { Val = Styles.AccentColor2 }),
+                new D.Outline(new D.NoFill())),
+            new P.TextBody(
+                new D.BodyProperties(),
+                new D.ListStyle(),
+                new D.Paragraph(new D.EndParagraphRunProperties { Language = "en-US" }))
+        );
+        GetShapeTree().Append(_accentLineShape);
+    }
+
+    /// <summary>
+    /// Gets or creates the title shape (inside the title bar).
     /// </summary>
     public P.Shape GetOrCreateTitleShape()
     {
         if (_titleShape == null)
         {
+            EnsureTitleBar();
+
             _titleShape = new P.Shape(
                 new P.NonVisualShapeProperties(
                     new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = "Title" },
@@ -83,15 +155,17 @@ public class SlideManager
                     new ApplicationNonVisualDrawingProperties()),
                 new P.ShapeProperties(
                     new D.Transform2D(
-                        new D.Offset { X = LeftMargin, Y = TopMargin },
-                        new D.Extents { Cx = _contentWidth, Cy = TitleHeight }),
-                    new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle }),
+                        new D.Offset { X = ContentLeftMargin, Y = TitleTextInset },
+                        new D.Extents { Cx = _contentWidth, Cy = TitleBarHeight - TitleTextInset * 2 }),
+                    new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
+                    new D.NoFill(),
+                    new D.Outline(new D.NoFill())),
                 new P.TextBody(
                     new D.BodyProperties
                     {
                         Wrap = D.TextWrappingValues.Square,
                         RightToLeftColumns = false,
-                        Anchor = D.TextAnchoringTypeValues.Bottom
+                        Anchor = D.TextAnchoringTypeValues.Center
                     },
                     new D.ListStyle())
             );
@@ -114,9 +188,11 @@ public class SlideManager
                     new ApplicationNonVisualDrawingProperties()),
                 new P.ShapeProperties(
                     new D.Transform2D(
-                        new D.Offset { X = LeftMargin, Y = _contentTop },
+                        new D.Offset { X = ContentLeftMargin, Y = _contentTop },
                         new D.Extents { Cx = _contentWidth, Cy = _contentHeight }),
-                    new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle }),
+                    new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
+                    new D.NoFill(),
+                    new D.Outline(new D.NoFill())),
                 new P.TextBody(
                     new D.BodyProperties
                     {
@@ -185,19 +261,23 @@ public class SlideManager
                 new ApplicationNonVisualDrawingProperties()),
             new P.ShapeProperties(
                 new D.Transform2D(
-                    new D.Offset { X = LeftMargin, Y = _currentY },
+                    new D.Offset { X = ContentLeftMargin, Y = _currentY },
                     new D.Extents { Cx = _contentWidth, Cy = height }),
-                new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
-                new D.SolidFill(new D.RgbColorModelHex { Val = bgColorHex })),
+                new D.PresetGeometry(
+                    new D.AdjustValueList(
+                        new D.ShapeGuide { Name = "adj", Formula = "val 16667" }))
+                { Preset = D.ShapeTypeValues.RoundRectangle },
+                new D.SolidFill(new D.RgbColorModelHex { Val = bgColorHex }),
+                new D.Outline(new D.NoFill())),
             new P.TextBody(
                 new D.BodyProperties
                 {
                     Wrap = D.TextWrappingValues.Square,
                     RightToLeftColumns = false,
-                    LeftInset = 91440,   // 0.1 inch padding
-                    TopInset = 45720,
-                    RightInset = 91440,
-                    BottomInset = 45720
+                    LeftInset = 182880,   // 0.2 inch padding
+                    TopInset = 91440,
+                    RightInset = 182880,
+                    BottomInset = 91440
                 },
                 new D.ListStyle())
         );
@@ -264,7 +344,7 @@ public class SlideManager
         var relationshipId = AddHyperlinkRelationship(url);
 
         var runProps = new D.RunProperties { Language = "en-US", FontSize = fontSizePt * 100, Dirty = false };
-        runProps.Append(new D.SolidFill(new D.RgbColorModelHex { Val = "0563C1" }));
+        runProps.Append(new D.SolidFill(new D.RgbColorModelHex { Val = Styles.AccentColor2 }));
         runProps.Append(new D.LatinFont { Typeface = fontName });
         runProps.Underline = D.TextUnderlineValues.Single;
         runProps.Append(new D.HyperlinkOnClick { Id = relationshipId });
@@ -314,7 +394,7 @@ public class SlideManager
                 new D.Stretch(new D.FillRectangle())),
             new P.ShapeProperties(
                 new D.Transform2D(
-                    new D.Offset { X = LeftMargin, Y = _currentY },
+                    new D.Offset { X = ContentLeftMargin, Y = _currentY },
                     new D.Extents { Cx = widthEmu, Cy = heightEmu }),
                 new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle })
         );
@@ -347,7 +427,7 @@ public class SlideManager
                 new P.NonVisualGraphicFrameDrawingProperties(),
                 new ApplicationNonVisualDrawingProperties()),
             new P.Transform(
-                new D.Offset { X = LeftMargin, Y = _currentY },
+                new D.Offset { X = ContentLeftMargin, Y = _currentY },
                 new D.Extents { Cx = _contentWidth, Cy = height }),
             new D.Graphic(new D.GraphicData(table)
             {

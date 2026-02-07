@@ -64,11 +64,12 @@ public class TableRenderer : OpenXmlObjectRenderer<MarkdigTable>
                                 {
                                     if (inline is LiteralInline literal)
                                     {
+                                        var textColor = tableRow.IsHeader ? styles.TableHeaderTextColor : styles.BodyColor;
                                         var run = slide.CreateRun(
                                             literal.Content.ToString(),
                                             styles.DefaultFontName,
                                             styles.DefaultFontSize,
-                                            styles.BodyColor,
+                                            textColor,
                                             bold: tableRow.IsHeader);
                                         paragraph.Append(run);
                                     }
@@ -115,20 +116,26 @@ public class TableRenderer : OpenXmlObjectRenderer<MarkdigTable>
                         textBody.Append(paragraph);
                         drawingCell.Append(textBody);
 
-                        // Cell properties with borders
+                        // Cell properties with clean borders
                         var cellProps = new D.TableCellProperties();
+                        var borderColor = styles.BorderColor;
+
                         cellProps.Append(new D.LeftBorderLineProperties(
-                            new D.SolidFill(new D.RgbColorModelHex { Val = "CCCCCC" })) { Width = 12700 });
+                            new D.SolidFill(new D.RgbColorModelHex { Val = borderColor })) { Width = 6350 });
                         cellProps.Append(new D.RightBorderLineProperties(
-                            new D.SolidFill(new D.RgbColorModelHex { Val = "CCCCCC" })) { Width = 12700 });
+                            new D.SolidFill(new D.RgbColorModelHex { Val = borderColor })) { Width = 6350 });
                         cellProps.Append(new D.TopBorderLineProperties(
-                            new D.SolidFill(new D.RgbColorModelHex { Val = "CCCCCC" })) { Width = 12700 });
+                            new D.SolidFill(new D.RgbColorModelHex { Val = borderColor })) { Width = 6350 });
                         cellProps.Append(new D.BottomBorderLineProperties(
-                            new D.SolidFill(new D.RgbColorModelHex { Val = "CCCCCC" })) { Width = 12700 });
+                            new D.SolidFill(new D.RgbColorModelHex { Val = borderColor })) { Width = 6350 });
 
                         if (tableRow.IsHeader)
                         {
-                            cellProps.Append(new D.SolidFill(new D.RgbColorModelHex { Val = "D3D3D3" }));
+                            cellProps.Append(new D.SolidFill(new D.RgbColorModelHex { Val = styles.TableHeaderColor }));
+                        }
+                        else if (drawingTable.Elements<D.TableRow>().Count() % 2 == 0)
+                        {
+                            cellProps.Append(new D.SolidFill(new D.RgbColorModelHex { Val = styles.TableStripeColor }));
                         }
 
                         drawingCell.Append(cellProps);

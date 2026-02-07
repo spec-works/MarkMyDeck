@@ -200,31 +200,31 @@ public class PresentationBuilder : IDisposable
         return new D.Theme(
             new D.ThemeElements(
                 new D.ColorScheme(
-                    new D.Dark1Color(new D.SystemColor { Val = SystemColorValues.WindowText, LastColor = "000000" }),
-                    new D.Light1Color(new D.SystemColor { Val = SystemColorValues.Window, LastColor = "FFFFFF" }),
-                    new D.Dark2Color(new D.RgbColorModelHex { Val = "44546A" }),
-                    new D.Light2Color(new D.RgbColorModelHex { Val = "E7E6E6" }),
-                    new D.Accent1Color(new D.RgbColorModelHex { Val = "4472C4" }),
-                    new D.Accent2Color(new D.RgbColorModelHex { Val = "ED7D31" }),
-                    new D.Accent3Color(new D.RgbColorModelHex { Val = "A5A5A5" }),
-                    new D.Accent4Color(new D.RgbColorModelHex { Val = "FFC000" }),
-                    new D.Accent5Color(new D.RgbColorModelHex { Val = "5B9BD5" }),
-                    new D.Accent6Color(new D.RgbColorModelHex { Val = "70AD47" }),
-                    new D.Hyperlink(new D.RgbColorModelHex { Val = "0563C1" }),
-                    new D.FollowedHyperlinkColor(new D.RgbColorModelHex { Val = "954F72" })
+                    new D.Dark1Color(new D.RgbColorModelHex { Val = "1B3A5C" }),
+                    new D.Light1Color(new D.RgbColorModelHex { Val = "FAFBFC" }),
+                    new D.Dark2Color(new D.RgbColorModelHex { Val = "2D2D2D" }),
+                    new D.Light2Color(new D.RgbColorModelHex { Val = "F0F4F8" }),
+                    new D.Accent1Color(new D.RgbColorModelHex { Val = "2E86DE" }),
+                    new D.Accent2Color(new D.RgbColorModelHex { Val = "10AC84" }),
+                    new D.Accent3Color(new D.RgbColorModelHex { Val = "EE5A24" }),
+                    new D.Accent4Color(new D.RgbColorModelHex { Val = "6C5CE7" }),
+                    new D.Accent5Color(new D.RgbColorModelHex { Val = "FDA7DF" }),
+                    new D.Accent6Color(new D.RgbColorModelHex { Val = "F9CA24" }),
+                    new D.Hyperlink(new D.RgbColorModelHex { Val = "2E86DE" }),
+                    new D.FollowedHyperlinkColor(new D.RgbColorModelHex { Val = "6C5CE7" })
                 )
-                { Name = "Office" },
+                { Name = "Modern" },
                 new D.FontScheme(
                     new D.MajorFont(
-                        new D.LatinFont { Typeface = "Calibri Light" },
+                        new D.LatinFont { Typeface = "Segoe UI Semibold" },
                         new D.EastAsianFont { Typeface = "" },
                         new D.ComplexScriptFont { Typeface = "" }),
                     new D.MinorFont(
-                        new D.LatinFont { Typeface = "Calibri" },
+                        new D.LatinFont { Typeface = "Segoe UI" },
                         new D.EastAsianFont { Typeface = "" },
                         new D.ComplexScriptFont { Typeface = "" })
                 )
-                { Name = "Office" },
+                { Name = "Modern" },
                 new D.FormatScheme(
                     new D.FillStyleList(
                         new D.SolidFill(new D.SchemeColor { Val = D.SchemeColorValues.PhColor }),
@@ -243,10 +243,10 @@ public class PresentationBuilder : IDisposable
                         new D.SolidFill(new D.SchemeColor { Val = D.SchemeColorValues.PhColor }),
                         new D.SolidFill(new D.SchemeColor { Val = D.SchemeColorValues.PhColor }))
                 )
-                { Name = "Office" }
+                { Name = "Modern" }
             )
         )
-        { Name = "Office Theme" };
+        { Name = "Modern Theme" };
     }
 
     public void Dispose()

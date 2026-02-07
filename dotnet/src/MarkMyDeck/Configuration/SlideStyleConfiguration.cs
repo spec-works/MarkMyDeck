@@ -10,7 +10,7 @@ public class SlideStyleConfiguration
     /// <summary>
     /// Default font name for body text.
     /// </summary>
-    public string DefaultFontName { get; set; } = "Calibri";
+    public string DefaultFontName { get; set; } = "Segoe UI";
 
     /// <summary>
     /// Default font size for body text (in points).
@@ -25,7 +25,7 @@ public class SlideStyleConfiguration
     /// <summary>
     /// Font size for slide subtitles / H2 headings (in points).
     /// </summary>
-    public int SubtitleFontSize { get; set; } = 28;
+    public int SubtitleFontSize { get; set; } = 30;
 
     /// <summary>
     /// Font size for H3 headings (in points).
@@ -50,27 +50,72 @@ public class SlideStyleConfiguration
     /// <summary>
     /// Title text color (hex color without #).
     /// </summary>
-    public string TitleColor { get; set; } = "2E74B5";
+    public string TitleColor { get; set; } = "FFFFFF";
 
     /// <summary>
     /// Body text color (hex color without #).
     /// </summary>
-    public string BodyColor { get; set; } = "333333";
+    public string BodyColor { get; set; } = "2D2D2D";
+
+    /// <summary>
+    /// Accent color used for title bar, table headers, links (hex without #).
+    /// </summary>
+    public string AccentColor { get; set; } = "1B3A5C";
+
+    /// <summary>
+    /// Secondary accent color for highlights and emphasis (hex without #).
+    /// </summary>
+    public string AccentColor2 { get; set; } = "2E86DE";
+
+    /// <summary>
+    /// Slide background color (hex without #).
+    /// </summary>
+    public string SlideBackgroundColor { get; set; } = "FAFBFC";
+
+    /// <summary>
+    /// Title bar background color (hex without #).
+    /// </summary>
+    public string TitleBarColor { get; set; } = "1B3A5C";
+
+    /// <summary>
+    /// Subtle border/separator color (hex without #).
+    /// </summary>
+    public string BorderColor { get; set; } = "DEE2E6";
+
+    /// <summary>
+    /// Table header background color (hex without #).
+    /// </summary>
+    public string TableHeaderColor { get; set; } = "1B3A5C";
+
+    /// <summary>
+    /// Table header text color (hex without #).
+    /// </summary>
+    public string TableHeaderTextColor { get; set; } = "FFFFFF";
+
+    /// <summary>
+    /// Table alternate row background (hex without #).
+    /// </summary>
+    public string TableStripeColor { get; set; } = "F0F4F8";
 
     /// <summary>
     /// Font name for code blocks and inline code.
     /// </summary>
-    public string CodeFontName { get; set; } = "Consolas";
+    public string CodeFontName { get; set; } = "Cascadia Code";
 
     /// <summary>
     /// Font size for code blocks and inline code (in points).
     /// </summary>
-    public int CodeFontSize { get; set; } = 14;
+    public int CodeFontSize { get; set; } = 13;
 
     /// <summary>
     /// Background color for code blocks (hex color without #).
     /// </summary>
-    public string CodeBackgroundColor { get; set; } = "F5F5F5";
+    public string CodeBackgroundColor { get; set; } = "1E1E2E";
+
+    /// <summary>
+    /// Default text color inside code blocks (hex without #).
+    /// </summary>
+    public string CodeForegroundColor { get; set; } = "CDD6F4";
 
     /// <summary>
     /// Color scheme for syntax highlighting (hex colors without #).
@@ -96,21 +141,21 @@ public class SlideStyleConfiguration
 }
 
 /// <summary>
-/// Color scheme for syntax highlighting.
-/// All colors are hex format without # prefix (e.g., "569CD6" for blue).
+/// Color scheme for syntax highlighting — Catppuccin Mocha inspired for dark code backgrounds.
+/// All colors are hex format without # prefix.
 /// </summary>
 public class SyntaxColorScheme
 {
-    public string KeywordColor { get; set; } = "569CD6";
-    public string StringColor { get; set; } = "CE9178";
-    public string NumberColor { get; set; } = "098658";
-    public string CommentColor { get; set; } = "6A9955";
-    public string OperatorColor { get; set; } = "4A4A4A";
-    public string TypeColor { get; set; } = "4EC9B0";
-    public string FunctionColor { get; set; } = "C4A000";
-    public string PropertyColor { get; set; } = "4FC1FF";
-    public string IdentifierColor { get; set; } = "383838";
-    public string DefaultColor { get; set; } = "383838";
+    public string KeywordColor { get; set; } = "CBA6F7";
+    public string StringColor { get; set; } = "A6E3A1";
+    public string NumberColor { get; set; } = "FAB387";
+    public string CommentColor { get; set; } = "6C7086";
+    public string OperatorColor { get; set; } = "89DCEB";
+    public string TypeColor { get; set; } = "F9E2AF";
+    public string FunctionColor { get; set; } = "89B4FA";
+    public string PropertyColor { get; set; } = "74C7EC";
+    public string IdentifierColor { get; set; } = "CDD6F4";
+    public string DefaultColor { get; set; } = "CDD6F4";
 
     /// <summary>
     /// Gets the color for a specific token type.

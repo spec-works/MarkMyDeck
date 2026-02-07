@@ -120,10 +120,10 @@ public class BasicConversionTests
         var slideParts = doc.PresentationPart!.SlideParts.ToList();
         slideParts.Should().HaveCountGreaterThan(0);
 
-        // Find runs with Consolas font (code font)
+        // Find runs with code font (Cascadia Code)
         var codeRuns = slideParts
             .SelectMany(sp => sp.Slide.Descendants<D.Run>())
-            .Where(r => r.RunProperties?.Elements<D.LatinFont>().Any(f => f.Typeface == "Consolas") == true)
+            .Where(r => r.RunProperties?.Elements<D.LatinFont>().Any(f => f.Typeface == "Cascadia Code") == true)
             .ToList();
         codeRuns.Should().HaveCountGreaterThan(0);
     }

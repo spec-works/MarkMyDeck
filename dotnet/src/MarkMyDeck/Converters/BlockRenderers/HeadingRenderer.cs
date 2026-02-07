@@ -34,12 +34,12 @@ public class HeadingRenderer : OpenXmlObjectRenderer<HeadingBlock>
                 if (run.RunProperties == null)
                     run.RunProperties = new D.RunProperties();
                 run.RunProperties.FontSize = fontSize * 100;
-                run.RunProperties.Bold = true;
+                run.RunProperties.Bold = false;
                 run.RunProperties.Dirty = false;
                 if (!run.RunProperties.Elements<D.SolidFill>().Any())
                     run.RunProperties.Append(new D.SolidFill(new D.RgbColorModelHex { Val = styles.TitleColor }));
                 if (!run.RunProperties.Elements<D.LatinFont>().Any())
-                    run.RunProperties.Append(new D.LatinFont { Typeface = styles.DefaultFontName });
+                    run.RunProperties.Append(new D.LatinFont { Typeface = "Segoe UI Semibold" });
             }
         }
         else
