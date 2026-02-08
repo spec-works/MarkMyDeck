@@ -1,0 +1,635 @@
+{
+  "source_base_path": "/home/runner/work/MarkMyDeck/MarkMyDeck/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.CLI.Commands.ConvertCommand.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.CLI.Commands.ConvertCommand.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.CLI.Commands.ConvertCommand",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.CLI.Commands.ConvertCommand.yml\" sourcestartlinenumber=\"1\">Handles the convert command logic.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.CLI.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.CLI.Commands.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.CLI.Commands",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.ConversionOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.ConversionOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration.ConversionOptions",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Configuration.ConversionOptions.yml\" sourcestartlinenumber=\"1\">Options for converting markdown to PowerPoint presentations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.ImageHandlingStrategy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.ImageHandlingStrategy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration.ImageHandlingStrategy",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Configuration.ImageHandlingStrategy.yml\" sourcestartlinenumber=\"1\">Strategy for handling images in markdown.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.SlideStyleConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.SlideStyleConfiguration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration.SlideStyleConfiguration",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Configuration.SlideStyleConfiguration.yml\" sourcestartlinenumber=\"1\">Configuration for presentation styling.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.SlideTheme.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.SlideTheme.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration.SlideTheme",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Configuration.SlideTheme.yml\" sourcestartlinenumber=\"1\">Available built-in presentation themes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.SlideThemePresets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.SlideThemePresets.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration.SlideThemePresets",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Configuration.SlideThemePresets.yml\" sourcestartlinenumber=\"1\">Factory that creates <xref href=\"MarkMyDeck.Configuration.SlideStyleConfiguration\" data-throw-if-not-resolved=\"false\"></xref> instances for each built-in theme.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.SyntaxColorScheme.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.SyntaxColorScheme.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration.SyntaxColorScheme",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Configuration.SyntaxColorScheme.yml\" sourcestartlinenumber=\"1\">Color scheme for syntax highlighting — Catppuccin Mocha inspired for dark code backgrounds.\nAll colors are hex format without # prefix.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Configuration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Configuration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Configuration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.CodeBlockRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.CodeBlockRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.CodeBlockRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.CodeBlockRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for code blocks — creates a standalone shape with background color.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.HeadingRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.HeadingRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.HeadingRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.HeadingRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for heading blocks. H1 and H2 create new slides with a title shape.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.ListRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.ListRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.ListRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.ListRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for list blocks — adds bullet/number paragraphs to the content shape.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.ParagraphRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.ParagraphRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.ParagraphRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.ParagraphRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for paragraph blocks — adds to the content shape.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.QuoteBlockRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.QuoteBlockRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.QuoteBlockRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.QuoteBlockRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for quote blocks — adds italic paragraphs with indent to the content shape.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.TableRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.TableRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.TableRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.TableRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for table blocks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.ThematicBreakRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.ThematicBreakRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers.ThematicBreakRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.BlockRenderers.ThematicBreakRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for thematic breaks (horizontal rules).\nSets a flag so the next heading doesn't create a duplicate slide.\nIf no heading follows, creates a new slide.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.BlockRenderers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.BlockRenderers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.BlockRenderers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.InlineRenderers.CodeInlineRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.InlineRenderers.CodeInlineRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.InlineRenderers.CodeInlineRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.InlineRenderers.CodeInlineRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for inline code elements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.InlineRenderers.EmphasisInlineRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.InlineRenderers.EmphasisInlineRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.InlineRenderers.EmphasisInlineRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.InlineRenderers.EmphasisInlineRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for emphasis (bold/italic) inline elements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.InlineRenderers.LineBreakInlineRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.InlineRenderers.LineBreakInlineRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.InlineRenderers.LineBreakInlineRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.InlineRenderers.LineBreakInlineRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for line break inline elements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.InlineRenderers.LinkInlineRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.InlineRenderers.LinkInlineRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.InlineRenderers.LinkInlineRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.InlineRenderers.LinkInlineRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for link inline elements (hyperlinks and images).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.InlineRenderers.LiteralInlineRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.InlineRenderers.LiteralInlineRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.InlineRenderers.LiteralInlineRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.InlineRenderers.LiteralInlineRenderer.yml\" sourcestartlinenumber=\"1\">Renderer for literal inline text.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.InlineRenderers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.InlineRenderers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.InlineRenderers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.OpenXmlObjectRenderer-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.OpenXmlObjectRenderer-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.OpenXmlObjectRenderer<TObject>",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.OpenXmlObjectRenderer-1.yml\" sourcestartlinenumber=\"1\">Base class for OpenXML Presentation object renderers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.OpenXmlPresentationRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.OpenXmlPresentationRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters.OpenXmlPresentationRenderer",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.Converters.OpenXmlPresentationRenderer.yml\" sourcestartlinenumber=\"1\">Renders Markdig AST to OpenXML PowerPoint format.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.Converters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.Converters",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.MarkdownConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.MarkdownConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.MarkdownConverter",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.MarkdownConverter.yml\" sourcestartlinenumber=\"1\">Provides methods to convert Markdown to PowerPoint presentations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.OpenXml.PresentationBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.OpenXml.PresentationBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.OpenXml.PresentationBuilder",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.OpenXml.PresentationBuilder.yml\" sourcestartlinenumber=\"1\">Manages the creation and manipulation of OpenXML PowerPoint presentations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.OpenXml.SlideManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.OpenXml.SlideManager.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.OpenXml.SlideManager",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.OpenXml.SlideManager.yml\" sourcestartlinenumber=\"1\">Manages the current slide's content using a title shape and a content shape.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.OpenXml.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.OpenXml.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.OpenXml",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.BashHighlighter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.BashHighlighter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.BashHighlighter",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.BashHighlighter.yml\" sourcestartlinenumber=\"1\">Custom syntax highlighter for Bash/Shell scripts.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.ColorCodeHighlighter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.ColorCodeHighlighter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.ColorCodeHighlighter",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.ColorCodeHighlighter.yml\" sourcestartlinenumber=\"1\">Syntax highlighter using ColorCode.Core for JSON and other common languages.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.HttpHighlighter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.HttpHighlighter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.HttpHighlighter",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.HttpHighlighter.yml\" sourcestartlinenumber=\"1\">Syntax highlighter for HTTP requests and responses with media-type-aware body highlighting.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.ISyntaxHighlighter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.ISyntaxHighlighter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.ISyntaxHighlighter",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.ISyntaxHighlighter.yml\" sourcestartlinenumber=\"1\">Interface for syntax highlighters that tokenize code into colored segments.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.SyntaxHighlighterFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.SyntaxHighlighterFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.SyntaxHighlighterFactory",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.SyntaxHighlighterFactory.yml\" sourcestartlinenumber=\"1\">Factory for creating and selecting appropriate syntax highlighters based on language.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.SyntaxToken.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.SyntaxToken.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.SyntaxToken",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.SyntaxToken.yml\" sourcestartlinenumber=\"1\">Represents a syntax token with its text content and classification type.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.TokenType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.TokenType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.TokenType",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.TokenType.yml\" sourcestartlinenumber=\"1\">Classification types for syntax tokens.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.TypeSpecHighlighter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.TypeSpecHighlighter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting.TypeSpecHighlighter",
+      "Summary": "<p sourcefile=\"api/MarkMyDeck.SyntaxHighlighting.TypeSpecHighlighter.yml\" sourcestartlinenumber=\"1\">Custom syntax highlighter for TypeSpec language.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.SyntaxHighlighting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.SyntaxHighlighting.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck.SyntaxHighlighting",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/MarkMyDeck.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/MarkMyDeck.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "MarkMyDeck",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

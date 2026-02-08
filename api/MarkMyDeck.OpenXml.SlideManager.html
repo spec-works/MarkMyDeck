@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SlideManager | MarkMyDeck Documentation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SlideManager | MarkMyDeck Documentation ">
+      
+      <meta name="description" content="Manages the current slide&#39;s content using a title shape and a content shape.">
+      <link rel="icon" href="../images/logo.svg">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/spec-works/MarkMyDeck/new/main/apiSpec/new?filename=MarkMyDeck_OpenXml_SlideManager.md&amp;value=---%0Auid%3A%20MarkMyDeck.OpenXml.SlideManager%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.svg" alt="MarkMyDeck">
+            MarkMyDeck
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="MarkMyDeck.OpenXml.SlideManager">
+
+
+
+  <h1 id="MarkMyDeck_OpenXml_SlideManager" data-uid="MarkMyDeck.OpenXml.SlideManager" class="text-break">
+Class SlideManager  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="MarkMyDeck.html">MarkMyDeck</a>.<a class="xref" href="MarkMyDeck.OpenXml.html">OpenXml</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>MarkMyDeck.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Manages the current slide's content using a title shape and a content shape.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SlideManager</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">SlideManager</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager__ctor_" data-uid="MarkMyDeck.OpenXml.SlideManager.#ctor*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager__ctor_DocumentFormat_OpenXml_Packaging_SlidePart_MarkMyDeck_OpenXml_PresentationBuilder_" data-uid="MarkMyDeck.OpenXml.SlideManager.#ctor(DocumentFormat.OpenXml.Packaging.SlidePart,MarkMyDeck.OpenXml.PresentationBuilder)">
+  SlideManager(SlidePart, PresentationBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SlideManager(SlidePart slidePart, PresentationBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>slidePart</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.packaging.slidepart">SlidePart</a></dt>
+    <dd></dd>
+    <dt><code>builder</code> <a class="xref" href="MarkMyDeck.OpenXml.PresentationBuilder.html">PresentationBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_Builder_" data-uid="MarkMyDeck.OpenXml.SlideManager.Builder*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_Builder" data-uid="MarkMyDeck.OpenXml.SlideManager.Builder">
+  Builder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PresentationBuilder Builder { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MarkMyDeck.OpenXml.PresentationBuilder.html">PresentationBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_ContentWidth_" data-uid="MarkMyDeck.OpenXml.SlideManager.ContentWidth*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_ContentWidth" data-uid="MarkMyDeck.OpenXml.SlideManager.ContentWidth">
+  ContentWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the available content width in EMUs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long ContentWidth { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_EstimatedNextY_" data-uid="MarkMyDeck.OpenXml.SlideManager.EstimatedNextY*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_EstimatedNextY" data-uid="MarkMyDeck.OpenXml.SlideManager.EstimatedNextY">
+  EstimatedNextY
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L240"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The estimated Y position if another content paragraph were added.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long EstimatedNextY { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_IsOverflowing_" data-uid="MarkMyDeck.OpenXml.SlideManager.IsOverflowing*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_IsOverflowing" data-uid="MarkMyDeck.OpenXml.SlideManager.IsOverflowing">
+  IsOverflowing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L235"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether the current slide's content has exceeded the available space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOverflowing { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_Options_" data-uid="MarkMyDeck.OpenXml.SlideManager.Options*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_Options" data-uid="MarkMyDeck.OpenXml.SlideManager.Options">
+  Options
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConversionOptions Options { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MarkMyDeck.Configuration.ConversionOptions.html">ConversionOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_RemainingHeight_" data-uid="MarkMyDeck.OpenXml.SlideManager.RemainingHeight*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_RemainingHeight" data-uid="MarkMyDeck.OpenXml.SlideManager.RemainingHeight">
+  RemainingHeight
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L449"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the remaining vertical space from the current Y position to the bottom margin.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long RemainingHeight { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_SlidePart_" data-uid="MarkMyDeck.OpenXml.SlideManager.SlidePart*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_SlidePart" data-uid="MarkMyDeck.OpenXml.SlideManager.SlidePart">
+  SlidePart
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L51"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SlidePart SlidePart { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.packaging.slidepart">SlidePart</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_Styles_" data-uid="MarkMyDeck.OpenXml.SlideManager.Styles*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_Styles" data-uid="MarkMyDeck.OpenXml.SlideManager.Styles">
+  Styles
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SlideStyleConfiguration Styles { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="MarkMyDeck.Configuration.SlideStyleConfiguration.html">SlideStyleConfiguration</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_WouldOverflowWithParagraph_" data-uid="MarkMyDeck.OpenXml.SlideManager.WouldOverflowWithParagraph*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_WouldOverflowWithParagraph" data-uid="MarkMyDeck.OpenXml.SlideManager.WouldOverflowWithParagraph">
+  WouldOverflowWithParagraph
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L245"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether adding another content paragraph would overflow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WouldOverflowWithParagraph { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddCodeBlockShape_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddCodeBlockShape*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddCodeBlockShape_System_Int64_System_String_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddCodeBlockShape(System.Int64,System.String)">
+  AddCodeBlockShape(long, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L302"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a standalone text box with a solid background fill (for code blocks).
+If a content shape exists, shrinks it and positions the code block below.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Shape AddCodeBlockShape(long height, string bgColorHex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>height</code> <span class="xref">long</span></dt>
+    <dd></dd>
+    <dt><code>bgColorHex</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.presentation.shape">Shape</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddContentParagraph_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddContentParagraph*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddContentParagraph" data-uid="MarkMyDeck.OpenXml.SlideManager.AddContentParagraph">
+  AddContentParagraph()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L282"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a paragraph to the content shape and tracks estimated height.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Paragraph AddContentParagraph()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.drawing.paragraph">Paragraph</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddHyperlinkRelationship_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddHyperlinkRelationship*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddHyperlinkRelationship_System_String_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddHyperlinkRelationship(System.String)">
+  AddHyperlinkRelationship(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L440"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a hyperlink relationship to the slide part.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string AddHyperlinkRelationship(string url)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>url</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddImage_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddImage*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddImage_System_Byte___System_String_System_Int64_System_Int64_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddImage(System.Byte[],System.String,System.Int64,System.Int64)">
+  AddImage(byte[], string, long, long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L456"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds an image to the slide with smart placement:</p>
+<ul>
+<li>Landscape images: above or below content</li>
+<li>Portrait images: left or right of content, alternating</li>
+</ul>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddImage(byte[] imageData, string contentType, long widthEmu, long heightEmu)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>imageData</code> <span class="xref">byte</span>[]</dt>
+    <dd></dd>
+    <dt><code>contentType</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>widthEmu</code> <span class="xref">long</span></dt>
+    <dd></dd>
+    <dt><code>heightEmu</code> <span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddParagraphToShape_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddParagraphToShape*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddParagraphToShape_DocumentFormat_OpenXml_Presentation_Shape_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddParagraphToShape(DocumentFormat.OpenXml.Presentation.Shape)">
+  AddParagraphToShape(Shape)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L390"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a paragraph to an existing shape's TextBody.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Paragraph AddParagraphToShape(Shape shape)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>shape</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.presentation.shape">Shape</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.drawing.paragraph">Paragraph</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddTable_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddTable*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddTable_System_Int32_System_Int32_System_Int64_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddTable(System.Int32,System.Int32,System.Int64)">
+  AddTable(int, int, long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L625"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a table to the slide at the current position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Table AddTable(int rows, int cols, long height)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rows</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>cols</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>height</code> <span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.drawing.table">Table</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_AddTitleParagraph_" data-uid="MarkMyDeck.OpenXml.SlideManager.AddTitleParagraph*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_AddTitleParagraph" data-uid="MarkMyDeck.OpenXml.SlideManager.AddTitleParagraph">
+  AddTitleParagraph()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L271"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds a paragraph to the title shape.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Paragraph AddTitleParagraph()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.drawing.paragraph">Paragraph</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_CreateHyperlinkRun_" data-uid="MarkMyDeck.OpenXml.SlideManager.CreateHyperlinkRun*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_CreateHyperlinkRun_System_String_System_String_System_String_System_Int32_" data-uid="MarkMyDeck.OpenXml.SlideManager.CreateHyperlinkRun(System.String,System.String,System.String,System.Int32)">
+  CreateHyperlinkRun(string, string, string, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L424"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a run with hyperlink.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Run CreateHyperlinkRun(string text, string url, string fontName, int fontSizePt)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>url</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>fontName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>fontSizePt</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.drawing.run">Run</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_CreateRun_" data-uid="MarkMyDeck.OpenXml.SlideManager.CreateRun*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_CreateRun_System_String_System_String_System_Int32_System_String_System_Boolean_System_Boolean_System_Boolean_" data-uid="MarkMyDeck.OpenXml.SlideManager.CreateRun(System.String,System.String,System.Int32,System.String,System.Boolean,System.Boolean,System.Boolean)">
+  CreateRun(string, string, int, string?, bool, bool, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L401"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a run with specified text and formatting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Run CreateRun(string text, string fontName, int fontSizePt, string? colorHex = null, bool bold = false, bool italic = false, bool underline = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>text</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>fontName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>fontSizePt</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>colorHex</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>bold</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+    <dt><code>italic</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+    <dt><code>underline</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.drawing.run">Run</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_GetOrCreateContentShape_" data-uid="MarkMyDeck.OpenXml.SlideManager.GetOrCreateContentShape*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_GetOrCreateContentShape" data-uid="MarkMyDeck.OpenXml.SlideManager.GetOrCreateContentShape">
+  GetOrCreateContentShape()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or creates the main content shape (body of slide, below title).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Shape GetOrCreateContentShape()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.presentation.shape">Shape</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_GetOrCreateTitleShape_" data-uid="MarkMyDeck.OpenXml.SlideManager.GetOrCreateTitleShape*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_GetOrCreateTitleShape" data-uid="MarkMyDeck.OpenXml.SlideManager.GetOrCreateTitleShape">
+  GetOrCreateTitleShape()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets or creates the title shape (inside the title bar).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Shape GetOrCreateTitleShape()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.presentation.shape">Shape</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_GetShapeTree_" data-uid="MarkMyDeck.OpenXml.SlideManager.GetShapeTree*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_GetShapeTree" data-uid="MarkMyDeck.OpenXml.SlideManager.GetShapeTree">
+  GetShapeTree()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the shape tree of the current slide.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ShapeTree GetShapeTree()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/documentformat.openxml.presentation.shapetree">ShapeTree</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_GetTitleText_" data-uid="MarkMyDeck.OpenXml.SlideManager.GetTitleText*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_GetTitleText" data-uid="MarkMyDeck.OpenXml.SlideManager.GetTitleText">
+  GetTitleText()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L255"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the last title text (for continuation slides).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? GetTitleText()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_SyncCursorAfterContent_" data-uid="MarkMyDeck.OpenXml.SlideManager.SyncCursorAfterContent*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_SyncCursorAfterContent" data-uid="MarkMyDeck.OpenXml.SlideManager.SyncCursorAfterContent">
+  SyncCursorAfterContent()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L377"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Advances the Y cursor past the content shape so standalone elements appear below it.
+Call this before adding code blocks, tables, or images if content shape exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SyncCursorAfterContent()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="MarkMyDeck_OpenXml_SlideManager_WouldOverflowWithCodeBlock_" data-uid="MarkMyDeck.OpenXml.SlideManager.WouldOverflowWithCodeBlock*"></a>
+
+  <h3 id="MarkMyDeck_OpenXml_SlideManager_WouldOverflowWithCodeBlock_System_Int64_" data-uid="MarkMyDeck.OpenXml.SlideManager.WouldOverflowWithCodeBlock(System.Int64)">
+  WouldOverflowWithCodeBlock(long)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L250"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether a code block of given height would overflow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WouldOverflowWithCodeBlock(long height)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>height</code> <span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/spec-works/MarkMyDeck/blob/main/dotnet/src/MarkMyDeck/OpenXml/SlideManager.cs/#L18" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <a href='https://spec-works.github.io/'>SpecWorks Factory</a> | <a href='https://github.com/spec-works/MarkMyDeck'>GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
