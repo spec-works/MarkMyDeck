@@ -1,0 +1,14 @@
+{
+  "description": "Italic emphasis should create a run with Italic property set to true",
+  "inputFile": "italic_text.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_italic_runs",
+      "slideIndex": 0
+    }
+  ]
+}

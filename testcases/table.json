@@ -1,0 +1,15 @@
+{
+  "description": "Markdown table should create an OOXML table element",
+  "inputFile": "table.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_table",
+      "slideIndex": 0,
+      "tableCount": 1
+    }
+  ]
+}

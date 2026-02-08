@@ -1,0 +1,14 @@
+{
+  "description": "Mixed content with headings, emphasis, code, lists, tables, and links should convert to a multi-slide presentation",
+  "inputFile": "mixed_content.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 2
+    },
+    {
+      "type": "has_bold_runs",
+      "slideIndex": 0
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "description": "Empty markdown string should throw ArgumentException",
+  "input": "",
+  "expectedException": "ArgumentException"
+}

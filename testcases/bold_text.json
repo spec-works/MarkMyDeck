@@ -1,0 +1,14 @@
+{
+  "description": "Bold emphasis should create a run with Bold property set to true",
+  "inputFile": "bold_text.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_bold_runs",
+      "slideIndex": 0
+    }
+  ]
+}

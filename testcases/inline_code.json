@@ -1,0 +1,15 @@
+{
+  "description": "Inline code should render with Cascadia Code monospace font",
+  "inputFile": "inline_code.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_code_font_runs",
+      "slideIndex": 0,
+      "fontName": "Cascadia Code"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "description": "A single H1 heading should create a slide with a title",
+  "inputFile": "basic_heading.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "description": "Markdown links should create runs with HyperlinkOnClick elements",
+  "inputFile": "hyperlink.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_hyperlink_runs",
+      "slideIndex": 0
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Ordered list should render numbered items",
+  "inputFile": "ordered_list.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_numbered_items",
+      "slideIndex": 0,
+      "minimumCount": 3
+    }
+  ]
+}

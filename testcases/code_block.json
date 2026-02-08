@@ -1,0 +1,14 @@
+{
+  "description": "Fenced code block should create a shape with background fill for syntax-highlighted code",
+  "inputFile": "code_block.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_shape_with_solid_fill",
+      "slideIndex": 0
+    }
+  ]
+}

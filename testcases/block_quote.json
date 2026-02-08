@@ -1,0 +1,15 @@
+{
+  "description": "Block quote should render as a styled quote element on the slide",
+  "inputFile": "block_quote.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_text_content",
+      "slideIndex": 0,
+      "containsText": "block quote"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Unordered list should render bullet items with bullet characters",
+  "inputFile": "unordered_list.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 1
+    },
+    {
+      "type": "has_bullet_runs",
+      "slideIndex": 0,
+      "minimumCount": 3
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Null output stream should throw ArgumentNullException",
+  "input": "# Test",
+  "outputStream": null,
+  "expectedException": "ArgumentNullException"
+}

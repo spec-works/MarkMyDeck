@@ -1,0 +1,10 @@
+{
+  "description": "Multiple H1 headings should create multiple slides",
+  "inputFile": "multiple_slides.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 2
+    }
+  ]
+}

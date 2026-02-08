@@ -1,0 +1,10 @@
+{
+  "description": "Thematic break (---) followed by heading should create separate slides",
+  "inputFile": "thematic_break.md",
+  "expectations": [
+    {
+      "type": "slide_count",
+      "minimumValue": 2
+    }
+  ]
+}
