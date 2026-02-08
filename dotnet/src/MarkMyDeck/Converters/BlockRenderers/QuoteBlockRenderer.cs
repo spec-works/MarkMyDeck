@@ -17,6 +17,11 @@ public class QuoteBlockRenderer : OpenXmlObjectRenderer<QuoteBlock>
         {
             if (child is ParagraphBlock paragraphBlock)
             {
+                if (slide.WouldOverflowWithParagraph)
+                {
+                    slide = renderer.NewContinuationSlide();
+                }
+
                 var paragraph = slide.AddContentParagraph();
                 renderer.CurrentShape = slide.GetOrCreateContentShape();
                 renderer.CurrentParagraph = paragraph;

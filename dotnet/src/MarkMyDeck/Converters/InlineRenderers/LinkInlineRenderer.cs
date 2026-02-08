@@ -78,28 +78,11 @@ public class LinkInlineRenderer : OpenXmlObjectRenderer<LinkInline>
             // Read actual dimensions from image bytes
             GetImageDimensions(imageData, out int pixelWidth, out int pixelHeight);
 
+            var slide = renderer.CurrentSlide;
+
             // Convert pixels to EMUs (96 dpi: 1 pixel = 9525 EMUs)
             long imageWidthEmu = (long)pixelWidth * 9525;
             long imageHeightEmu = (long)pixelHeight * 9525;
-
-            // Cap to available content area
-            var slide = renderer.CurrentSlide;
-            long maxWidth = slide.ContentWidth;
-            long maxHeight = (long)(renderer.Options.SlideHeightInches * 914400 * 0.55); // ~55% of slide height
-
-            if (imageWidthEmu > maxWidth)
-            {
-                double scale = (double)maxWidth / imageWidthEmu;
-                imageWidthEmu = maxWidth;
-                imageHeightEmu = (long)(imageHeightEmu * scale);
-            }
-
-            if (imageHeightEmu > maxHeight)
-            {
-                double scale = (double)maxHeight / imageHeightEmu;
-                imageHeightEmu = maxHeight;
-                imageWidthEmu = (long)(imageWidthEmu * scale);
-            }
 
             // Minimum size
             if (imageWidthEmu < 914400) imageWidthEmu = 914400;   // 1 inch min

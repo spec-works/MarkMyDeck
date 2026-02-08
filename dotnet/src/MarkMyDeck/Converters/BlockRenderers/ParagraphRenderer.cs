@@ -12,6 +12,12 @@ public class ParagraphRenderer : OpenXmlObjectRenderer<ParagraphBlock>
     {
         var slide = renderer.CurrentSlide;
 
+        // If adding another paragraph would overflow, start a continuation slide
+        if (slide.WouldOverflowWithParagraph)
+        {
+            slide = renderer.NewContinuationSlide();
+        }
+
         var paragraph = slide.AddContentParagraph();
         renderer.CurrentShape = slide.GetOrCreateContentShape();
         renderer.CurrentParagraph = paragraph;

@@ -91,6 +91,34 @@ public class OpenXmlPresentationRenderer : RendererBase, IDisposable
         return _currentSlide;
     }
 
+    /// <summary>
+    /// Creates a continuation slide with the same title + " (cont.)".
+    /// Used when content overflows the current slide.
+    /// </summary>
+    public SlideManager NewContinuationSlide()
+    {
+        var previousTitle = _currentSlide?.GetTitleText();
+        var slide = NewSlide();
+        var styles = slide.Styles;
+
+        if (!string.IsNullOrEmpty(previousTitle))
+        {
+            var titleText = previousTitle!;
+            if (!titleText.EndsWith(" (cont.)"))
+                titleText += " (cont.)";
+
+            var paragraph = slide.AddTitleParagraph();
+            CurrentShape = slide.GetOrCreateTitleShape();
+            CurrentParagraph = paragraph;
+
+            var run = slide.CreateRun(titleText, styles.TitleFontName,
+                styles.TitleFontSize, styles.TitleColor);
+            paragraph.Append(run);
+        }
+
+        return slide;
+    }
+
     public override object Render(MarkdownObject markdownObject)
     {
         Write(markdownObject);

@@ -28,6 +28,12 @@ public class ListRenderer : OpenXmlObjectRenderer<ListBlock>
                 {
                     if (block is ParagraphBlock paragraphBlock)
                     {
+                        // Check overflow before adding list item
+                        if (slide.WouldOverflowWithParagraph)
+                        {
+                            slide = renderer.NewContinuationSlide();
+                        }
+
                         var paragraph = slide.AddContentParagraph();
                         renderer.CurrentShape = slide.GetOrCreateContentShape();
                         renderer.CurrentParagraph = paragraph;

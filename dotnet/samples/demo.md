@@ -11,6 +11,8 @@ Welcome to MarkMyDeck — a Markdown to PowerPoint converter.
 - Tables, lists, links, and more
 - Built with the same libraries as **MarkMyWord**
 
+![Portrait Photo](portrait-image.jpg)
+
 ---
 
 ## Code Example
@@ -89,4 +91,4 @@ Built with Markdig, DocumentFormat.OpenXml, and ColorCode.Core.
 
 Here's an embedded image:
 
-![Test Image](test-image.png)
+![Sample Photo](test-image.jpg)

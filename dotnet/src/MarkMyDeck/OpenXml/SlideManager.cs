@@ -37,12 +37,16 @@ public class SlideManager
     private long _contentTop;
     private long _contentHeight;
     private long _currentY;
+    private long _firstStandaloneY; // Y position of the first standalone element (code block, image)
 
     private P.Shape? _titleBarShape;
     private P.Shape? _titleShape;
     private P.Shape? _contentShape;
     private P.Shape? _accentLineShape;
     private int _contentParagraphCount;
+    private int _imageCount;
+    private long _portraitImageWidth; // width + gap consumed by a portrait image
+    private bool _portraitImageOnRight; // which side the portrait image is on
 
     public SlidePart SlidePart => _slidePart;
     public SlideStyleConfiguration Styles => _builder.Options.Styles;
@@ -59,6 +63,7 @@ public class SlideManager
         _contentTop = TitleBarHeight + TitleContentGap;
         _contentHeight = _slideHeight - _contentTop - BottomMargin;
         _currentY = _contentTop;
+        _firstStandaloneY = 0;
 
         // Add slide background fill
         AddSlideBackground();
@@ -181,6 +186,23 @@ public class SlideManager
     {
         if (_contentShape == null)
         {
+            // If a portrait image was already placed (image before text),
+            // narrow and shift the content shape accordingly
+            long contentX = ContentLeftMargin;
+            long contentW = _contentWidth;
+
+            if (_portraitImageWidth > 0 && !_portraitImageOnRight)
+            {
+                // Image is on the left — shift content right
+                contentX = ContentLeftMargin + _portraitImageWidth;
+                contentW = _contentWidth - _portraitImageWidth;
+            }
+            else if (_portraitImageWidth > 0 && _portraitImageOnRight)
+            {
+                // Image is on the right — narrow content from the right
+                contentW = _contentWidth - _portraitImageWidth;
+            }
+
             _contentShape = new P.Shape(
                 new P.NonVisualShapeProperties(
                     new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = "Content" },
@@ -188,8 +210,8 @@ public class SlideManager
                     new ApplicationNonVisualDrawingProperties()),
                 new P.ShapeProperties(
                     new D.Transform2D(
-                        new D.Offset { X = ContentLeftMargin, Y = _contentTop },
-                        new D.Extents { Cx = _contentWidth, Cy = _contentHeight }),
+                        new D.Offset { X = contentX, Y = _contentTop },
+                        new D.Extents { Cx = contentW, Cy = _contentHeight }),
                     new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle },
                     new D.NoFill(),
                     new D.Outline(new D.NoFill())),
@@ -208,9 +230,40 @@ public class SlideManager
     }
 
     /// <summary>
-    /// Whether the content shape has been created (i.e., there is body content).
+    /// Whether the current slide's content has exceeded the available space.
     /// </summary>
-    public bool HasContentShape => _contentShape != null;
+    public bool IsOverflowing => _currentY > (_slideHeight - BottomMargin);
+
+    /// <summary>
+    /// The estimated Y position if another content paragraph were added.
+    /// </summary>
+    public long EstimatedNextY => _contentTop + (long)((_contentParagraphCount + 1) * 320040);
+
+    /// <summary>
+    /// Whether adding another content paragraph would overflow.
+    /// </summary>
+    public bool WouldOverflowWithParagraph => EstimatedNextY > (_slideHeight - BottomMargin);
+
+    /// <summary>
+    /// Whether a code block of given height would overflow.
+    /// </summary>
+    public bool WouldOverflowWithCodeBlock(long height) => (_currentY + height) > (_slideHeight - BottomMargin);
+
+    /// <summary>
+    /// Gets the last title text (for continuation slides).
+    /// </summary>
+    public string? GetTitleText()
+    {
+        if (_titleShape == null) return null;
+        var runs = _titleShape.TextBody?.Descendants<D.Run>();
+        if (runs == null) return null;
+        var sb = new System.Text.StringBuilder();
+        foreach (var r in runs)
+        {
+            if (r.Text?.Text != null) sb.Append(r.Text.Text);
+        }
+        return sb.Length > 0 ? sb.ToString() : null;
+    }
 
     /// <summary>
     /// Adds a paragraph to the title shape.
@@ -232,9 +285,13 @@ public class SlideManager
         var paragraph = new D.Paragraph();
         shape.TextBody!.Append(paragraph);
         _contentParagraphCount++;
-        // Update _currentY to account for content paragraphs
-        // Estimate ~0.35 inch per paragraph
-        _currentY = _contentTop + (long)(_contentParagraphCount * 320040);
+        // Update _currentY to track content shape bottom, but never move it backwards
+        // (standalone elements like code blocks may have already advanced it further)
+        var estimatedBottom = _contentTop + (long)(_contentParagraphCount * 320040);
+        if (estimatedBottom > _currentY)
+        {
+            _currentY = estimatedBottom;
+        }
         return paragraph;
     }
 
@@ -249,9 +306,34 @@ public class SlideManager
         {
             var estimatedContentHeight = (long)(_contentParagraphCount * 320040); // ~0.35in per paragraph
             if (estimatedContentHeight < 182880) estimatedContentHeight = 182880; // min 0.2in
+
+            // Cap content shape so it doesn't overlap previously placed standalone elements
+            if (_firstStandaloneY > 0)
+            {
+                var maxHeight = _firstStandaloneY - _contentTop - 91440;
+                if (maxHeight < 182880) maxHeight = 182880;
+                if (estimatedContentHeight > maxHeight) estimatedContentHeight = maxHeight;
+            }
+
             var xfrm = _contentShape.ShapeProperties!.GetFirstChild<D.Transform2D>()!;
             xfrm.Extents!.Cy = estimatedContentHeight;
-            _currentY = _contentTop + estimatedContentHeight + 91440; // gap
+            var contentBottom = _contentTop + estimatedContentHeight + 91440; // gap
+            if (_currentY < contentBottom)
+            {
+                _currentY = contentBottom;
+            }
+        }
+
+        // Track where the first standalone element was placed
+        if (_firstStandaloneY == 0)
+        {
+            _firstStandaloneY = _currentY;
+        }
+
+        // Add a small gap between consecutive standalone elements
+        if (_currentY > _contentTop && _firstStandaloneY > 0 && _currentY > _firstStandaloneY)
+        {
+            _currentY += 91440; // 0.1 inch gap
         }
 
         var shape = new P.Shape(
@@ -362,19 +444,18 @@ public class SlideManager
     }
 
     /// <summary>
-    /// Adds an image to the slide. If content shape exists, shrinks it first.
+    /// Gets the remaining vertical space from the current Y position to the bottom margin.
+    /// </summary>
+    public long RemainingHeight => _slideHeight - _currentY - BottomMargin;
+
+    /// <summary>
+    /// Adds an image to the slide with smart placement:
+    /// - Landscape images: above or below content
+    /// - Portrait images: left or right of content, alternating
     /// </summary>
     public void AddImage(byte[] imageData, string contentType, long widthEmu, long heightEmu)
     {
-        // If content shape exists, resize it to fit its paragraphs
-        if (_contentShape != null)
-        {
-            var estimatedContentHeight = (long)(_contentParagraphCount * 320040);
-            if (estimatedContentHeight < 182880) estimatedContentHeight = 182880;
-            var xfrm = _contentShape.ShapeProperties!.GetFirstChild<D.Transform2D>()!;
-            xfrm.Extents!.Cy = estimatedContentHeight;
-            _currentY = _contentTop + estimatedContentHeight + 91440;
-        }
+        bool isPortrait = heightEmu > widthEmu;
 
         var partType = contentType.ToLowerInvariant() switch
         {
@@ -394,7 +475,135 @@ public class SlideManager
 
         var relationshipId = _slidePart.GetIdOfPart(imagePart);
 
-        var picture = new P.Picture(
+        if (isPortrait)
+        {
+            AddPortraitImage(relationshipId, widthEmu, heightEmu);
+        }
+        else
+        {
+            AddLandscapeImage(relationshipId, widthEmu, heightEmu);
+        }
+
+        _imageCount++;
+    }
+
+    private void AddLandscapeImage(string relationshipId, long widthEmu, long heightEmu)
+    {
+        // Shrink content shape if it exists
+        if (_contentShape != null)
+        {
+            var estimatedContentHeight = (long)(_contentParagraphCount * 320040);
+            if (estimatedContentHeight < 182880) estimatedContentHeight = 182880;
+            var xfrm = _contentShape.ShapeProperties!.GetFirstChild<D.Transform2D>()!;
+            xfrm.Extents!.Cy = estimatedContentHeight;
+            var contentBottom = _contentTop + estimatedContentHeight + 91440;
+            if (_currentY < contentBottom)
+            {
+                _currentY = contentBottom;
+            }
+        }
+
+        // Scale to fit remaining space
+        long availableHeight = _slideHeight - _currentY - BottomMargin;
+        if (availableHeight < 457200) availableHeight = 457200;
+
+        if (heightEmu > availableHeight)
+        {
+            double scale = (double)availableHeight / heightEmu;
+            heightEmu = availableHeight;
+            widthEmu = (long)(widthEmu * scale);
+        }
+
+        if (widthEmu > _contentWidth)
+        {
+            double scale = (double)_contentWidth / widthEmu;
+            widthEmu = _contentWidth;
+            heightEmu = (long)(heightEmu * scale);
+        }
+
+        // Center horizontally
+        long xOffset = ContentLeftMargin + (_contentWidth - widthEmu) / 2;
+
+        var picture = CreatePicture(relationshipId, xOffset, _currentY, widthEmu, heightEmu);
+        GetShapeTree().Append(picture);
+        _currentY += heightEmu + 91440;
+    }
+
+    private void AddPortraitImage(string relationshipId, long widthEmu, long heightEmu)
+    {
+        // If content exists before the image, place image to the right.
+        // If no content yet, place image to the left (text will flow to the right).
+        bool contentExistsBefore = _contentShape != null && _contentParagraphCount > 0;
+        bool placeRight = contentExistsBefore;
+
+        long gap = 182880; // 0.2 inch gap between image and content
+
+        // Available height for the image is the full content area
+        long availableHeight = _contentHeight;
+
+        // Image gets ~40% of the content width
+        long imageMaxWidth = (long)(_contentWidth * 0.40);
+
+        // Scale to fit
+        if (heightEmu > availableHeight)
+        {
+            double scale = (double)availableHeight / heightEmu;
+            heightEmu = availableHeight;
+            widthEmu = (long)(widthEmu * scale);
+        }
+
+        if (widthEmu > imageMaxWidth)
+        {
+            double scale = (double)imageMaxWidth / widthEmu;
+            widthEmu = imageMaxWidth;
+            heightEmu = (long)(heightEmu * scale);
+        }
+
+        // Position the image
+        long imageX;
+        if (placeRight)
+        {
+            imageX = ContentLeftMargin + _contentWidth - widthEmu;
+        }
+        else
+        {
+            imageX = ContentLeftMargin;
+        }
+
+        // Center vertically in content area
+        long imageY = _contentTop + (_contentHeight - heightEmu) / 2;
+
+        var picture = CreatePicture(relationshipId, imageX, imageY, widthEmu, heightEmu);
+        GetShapeTree().Append(picture);
+
+        // Resize content shape to avoid overlap (or set width for future content)
+        long newContentWidth = _contentWidth - widthEmu - gap;
+
+        if (_contentShape != null)
+        {
+            long newContentX;
+            if (placeRight)
+            {
+                newContentX = ContentLeftMargin; // content stays left
+            }
+            else
+            {
+                newContentX = ContentLeftMargin + widthEmu + gap; // content moves right
+            }
+
+            var xfrm = _contentShape.ShapeProperties!.GetFirstChild<D.Transform2D>()!;
+            xfrm.Offset!.X = newContentX;
+            xfrm.Extents!.Cx = newContentWidth;
+        }
+
+        // Narrow future content width so text added after also avoids the image
+        _portraitImageWidth = widthEmu + gap;
+        _portraitImageOnRight = placeRight;
+    }
+
+    private P.Picture CreatePicture(string relationshipId, long x, long y, long cx, long cy)
+    {
+        return new P.Picture(
             new P.NonVisualPictureProperties(
                 new P.NonVisualDrawingProperties { Id = (uint)_shapeIdCounter++, Name = $"Image {_shapeIdCounter}" },
                 new P.NonVisualPictureDrawingProperties(new D.PictureLocks { NoChangeAspect = true }),
@@ -404,13 +613,10 @@ public class SlideManager
                 new D.Stretch(new D.FillRectangle())),
             new P.ShapeProperties(
                 new D.Transform2D(
-                    new D.Offset { X = ContentLeftMargin, Y = _currentY },
-                    new D.Extents { Cx = widthEmu, Cy = heightEmu }),
+                    new D.Offset { X = x, Y = y },
+                    new D.Extents { Cx = cx, Cy = cy }),
                 new D.PresetGeometry(new D.AdjustValueList()) { Preset = D.ShapeTypeValues.Rectangle })
         );
-
-        GetShapeTree().Append(picture);
-        _currentY += heightEmu;
     }
 
     /// <summary>

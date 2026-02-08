@@ -50,6 +50,12 @@ public class CodeBlockRenderer : OpenXmlObjectRenderer<CodeBlock>
         var lineHeightEmu = (long)(styles.CodeFontSize * 12700 * 1.4);
         var totalHeight = lineHeightEmu * lineCount + 182880; // + padding
 
+        // If code block doesn't fit, start a continuation slide
+        if (slide.WouldOverflowWithCodeBlock(totalHeight))
+        {
+            slide = renderer.NewContinuationSlide();
+        }
+
         // Code blocks are standalone shapes with background
         var shape = slide.AddCodeBlockShape(totalHeight, styles.CodeBackgroundColor);
         renderer.CurrentShape = shape;
