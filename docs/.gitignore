@@ -1,7 +1,8 @@
 # DocFX build outputs
 _site/
 obj/
-api/
+api/*.yml
+api/.manifest
 *.manifest
 
 # Logs
