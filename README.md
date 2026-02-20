@@ -10,6 +10,7 @@ Implements [CommonMark 0.31.2](https://spec.commonmark.org/0.31.2/) and [Office 
 
 - **[.NET Library](dotnet/README.md)** - .NET Standard 2.1 / .NET 10
 - **[.NET CLI](dotnet/README.md#command-line-interface)** - .NET 10
+- **[Agent Skill](skills/markmydeck-cli/SKILL.md)** - for GitHub Copilot CLI, Claude Code, VS Code, Cursor
 
 ## License
 
